@@ -7,23 +7,25 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 public class OrderDto {
-
-    private Long id;
+    private String userId;
     private OrderStatus status;
     private Timestamp dateCreated;
     private Double totalPrice;
+    private List<Long> dishIds;
 
     public static OrderDto from(Order order) {
         return builder()
-                .id(order.getId())
+                .userId(order.getUserId())
                 .status(order.getStatus())
                 .dateCreated(order.getDateCreated())
                 .totalPrice(order.getTotalPrice())
+                .dishIds(order.getDishIds())
                 .build();
     }
 }

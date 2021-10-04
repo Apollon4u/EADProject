@@ -1,17 +1,19 @@
 package com.example.ordermicroservice.service.impl;
 
+import com.example.ordermicroservice.converter.OrderConverter;
 import com.example.ordermicroservice.model.dto.OrderDto;
 import com.example.ordermicroservice.model.entity.Order;
 import com.example.ordermicroservice.repository.OrderRepository;
-import com.example.ordermicroservice.service.IOrderService;
+import com.example.ordermicroservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements IOrderService {
+public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderConverter orderConverter;
 
     @Override
     public OrderDto getOrder(Long orderId) {
@@ -20,9 +22,12 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public void createOrder(Integer orderNumber) {
-        Order order = new Order();
-        order.setTotalPrice(orderNumber);
-        orderRepository.save(order);
+    public void createOrder(OrderDto dto) {
+        orderRepository.save(orderConverter.convert(dto));
+    }
+
+    @Override
+    public void addDish(Long orderId, Long dishId) {
+        orderRepository.getById(orderId).getDishIds().add(dishId);
     }
 }
