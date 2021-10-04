@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class UserDto {
-
-    private Long id;
     private String email;
     private String fio;
     private String phoneNumber;
@@ -19,7 +17,6 @@ public class UserDto {
 
     public static UserDto from(User user) {
         return builder()
-                .id(user.getId())
                 .email(user.getEmail())
                 .fio(user.getFio())
                 .phoneNumber(user.getPhoneNumber())

@@ -29,9 +29,6 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "iin_bin")
-    private String iinBin;
-
     @Column(name = "bank_account")
     private String bankAccount;
 
