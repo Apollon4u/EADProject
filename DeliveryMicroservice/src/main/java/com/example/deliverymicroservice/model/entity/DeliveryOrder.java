@@ -1,6 +1,5 @@
 package com.example.deliverymicroservice.model.entity;
 
-import com.example.deliverymicroservice.model.enums.DeliveryOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,7 @@ public class DeliveryOrder {
 
     private String trackingNumber;
 
-    private DeliveryOrderStatus deliveryOrderStatus;
+    private String address;
 
     private LocalDateTime createdAt;
 }
