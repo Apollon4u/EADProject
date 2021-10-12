@@ -13,22 +13,22 @@ public class DishController {
 
     private final DishService dishService;
 
-    @GetMapping("get-by-id")
+    @GetMapping("/get-by-id")
     public ResponseEntity<Dish> getDishById(@RequestParam("id") Long id) {
         return ResponseEntity.ok().body(dishService.getDish(id));
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public void createDish(@RequestBody Dish dish) {
         dishService.createDish(dish);
     }
 
-    @GetMapping("get-price")
+    @GetMapping("/get-price")
     public ResponseEntity<Double> getPriceOfDish(@RequestParam("id") Long id) {
         return ResponseEntity.ok().body(dishService.getPrice(id));
     }
 
-    @PostMapping("add-product")
+    @PostMapping("/add-product")
     public void addProduct(@RequestParam("id") Long dishId,
                            @RequestParam("id") Long productId) {
         dishService.addProduct(dishId, productId);

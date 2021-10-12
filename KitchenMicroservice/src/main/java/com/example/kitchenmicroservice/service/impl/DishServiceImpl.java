@@ -6,6 +6,9 @@ import com.example.kitchenmicroservice.service.DishService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DishServiceImpl implements DishService {
@@ -28,6 +31,10 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public void addProduct(Long dishId, Long productId) {
-        dishRepository.getById(dishId).getProductIds().add(productId);
+        Dish dish = dishRepository.findDishById(dishId);
+        List<Long> ids = dish.getProductIds();
+        ids.add(productId);
+        dish.setProductIds(ids);
+        dishRepository.save(dish);
     }
 }
