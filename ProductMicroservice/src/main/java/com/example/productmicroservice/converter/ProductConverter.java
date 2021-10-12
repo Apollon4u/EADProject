@@ -12,7 +12,6 @@ public class ProductConverter {
         return new ProductDto()
                 .setId(source.getId())
                 .setName(source.getName())
-                .setActive(source.getActive())
-                .setPickupAvailable(source.getPickupAvailable());
+                .setActive(source.getActive());
     }
 }

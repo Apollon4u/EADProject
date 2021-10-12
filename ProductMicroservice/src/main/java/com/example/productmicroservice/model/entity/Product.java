@@ -15,8 +15,8 @@ import javax.persistence.*;
 @FieldNameConstants
 public class Product {
     @Id
-    @SequenceGenerator(name = "stock-sequence", sequenceName = "stock_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "stock-sequence")
+    @SequenceGenerator(name = "product-sequence", sequenceName = "product_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "product-sequence")
     private Long id;
 
     private String name;
@@ -24,6 +24,5 @@ public class Product {
     @Column(name = "is_active")
     private Boolean active;
 
-    @Column(name = "is_pickup_available")
-    private Boolean pickupAvailable;
+    private Long quantity;
 }

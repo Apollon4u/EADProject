@@ -20,4 +20,33 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.getById(productId);
         return productConverter.fill(product);
     }
+
+    public void createProduct(String name) {
+        Product product = new Product();
+        product.setActive(false);
+        product.setName(name);
+        product.setQuantity(0L);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void changeActivity(Boolean status, Long id) {
+        Product product = productRepository.findProductById(id);
+        product.setActive(status);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void addQuantity(Long quantity, Long id) {
+        Product product = productRepository.findProductById(id);
+        product.setQuantity(product.getQuantity() + quantity);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void deleteQuantity(Long quantity, Long id) {
+        Product product = productRepository.findProductById(id);
+        product.setQuantity(product.getQuantity() - quantity);
+        productRepository.save(product);
+    }
 }
