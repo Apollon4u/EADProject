@@ -1,5 +1,6 @@
 package com.example.usermicroservice.model.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,17 +22,22 @@ public class User {
 
     @Column(name = "email")
     @NotNull
+    @ApiModelProperty("Почта")
     private String email;
 
     @Column
+    @ApiModelProperty("ФИО")
     private String fio;
 
     @Column(name = "phone_number")
+    @ApiModelProperty("Номер телефона")
     private String phoneNumber;
 
     @Column(name = "bank_account")
+    @ApiModelProperty("Банковский аккаунт")
     private String bankAccount;
 
     @Column(name = "address")
+    @ApiModelProperty("Адрес")
     private String address;
 }
