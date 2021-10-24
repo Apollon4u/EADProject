@@ -1,5 +1,6 @@
 package com.example.deliverymicroservice.model.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,11 +23,15 @@ public class DeliveryOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ApiModelProperty("id of attached order")
     private Long orderId;
 
+    @ApiModelProperty("Delivery's tracking number")
     private String trackingNumber;
 
+    @ApiModelProperty("Address of user")
     private String address;
 
+    @ApiModelProperty("Created time")
     private LocalDateTime createdAt;
 }
