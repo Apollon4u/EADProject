@@ -1,6 +1,7 @@
 package com.example.ordermicroservice.model.entity;
 
 import com.example.ordermicroservice.model.enums.OrderStatus;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,18 +25,23 @@ public class Order {
     private Long id;
 
     @Column(name = "user_id")
+    @ApiModelProperty("Айди прикрепленного юзера")
     private String userId;
 
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
+    @ApiModelProperty("Статус заказа")
     private OrderStatus status;
 
     @Column(name = "date_created")
+    @ApiModelProperty("Дата создания заказа")
     private Timestamp dateCreated;
 
     @ElementCollection
+    @ApiModelProperty("Айди блюд находящихся в заказе")
     private List<Long> dishIds;
 
     @Column(name = "total_price")
+    @ApiModelProperty("Цена за заказ")
     private Double totalPrice;
 }
