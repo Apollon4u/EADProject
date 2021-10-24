@@ -1,6 +1,7 @@
 package com.example.restaurantmanagementmicroservice.controller;
 
 import com.example.restaurantmanagementmicroservice.service.ManageService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -20,6 +21,7 @@ public class ManageController {
     public final ManageService manageService;
 
     @PostMapping("/dish-price")
+    @ApiOperation(value = "Get price of a given by id dish")
     public Double getDishPrice(Long id) {
         return manageService.getDishPrice(id);
     }
