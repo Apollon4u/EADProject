@@ -1,5 +1,6 @@
 package com.example.productmicroservice.model.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,10 +20,13 @@ public class Product {
     @GeneratedValue(generator = "product-sequence")
     private Long id;
 
+    @ApiModelProperty("Name og product")
     private String name;
 
     @Column(name = "is_active")
+    @ApiModelProperty("Status of product for use")
     private Boolean active;
 
+    @ApiModelProperty("Quantity of product in storage")
     private Long quantity;
 }
