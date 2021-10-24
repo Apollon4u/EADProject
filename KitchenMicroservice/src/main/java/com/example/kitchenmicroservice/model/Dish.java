@@ -1,5 +1,6 @@
 package com.example.kitchenmicroservice.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,10 +20,13 @@ public class Dish {
     @GeneratedValue(generator = "dish-sequence")
     private Long id;
 
+    @ApiModelProperty("Name of dish")
     private String name;
 
     @ElementCollection
+    @ApiModelProperty("List of products contained in dish")
     private List<Long> productIds;
 
+    @ApiModelProperty("Price of dish")
     private Double price;
 }
