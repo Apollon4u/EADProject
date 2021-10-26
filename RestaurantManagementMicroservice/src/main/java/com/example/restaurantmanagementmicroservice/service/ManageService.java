@@ -15,6 +15,7 @@ public class ManageService {
     @Autowired
     private LoadBalancerClient loadBalancer;
 
+//    @HystrixCommand(fallbackMethod = "getDishPriceFallback")
     public Double getDishPrice(Long id) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -28,6 +29,10 @@ public class ManageService {
             System.out.println(e);
         }
         return response.getBody();
+    }
+
+    public Double getDishPriceFallback(Long id) {
+        return 0.0;
     }
 
 //    public void triggerOrder(Integer orderNumber) {
