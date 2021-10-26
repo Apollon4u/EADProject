@@ -1,13 +1,13 @@
 package com.example.usermicroservice.model.dto;
 
 import com.example.usermicroservice.model.entity.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     private String email;
     private String fio;
