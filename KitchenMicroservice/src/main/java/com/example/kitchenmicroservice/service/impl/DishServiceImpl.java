@@ -16,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DishServiceImpl implements DishService {
 
-//    @Autowired
-//    private RestTemplate restTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
     private final DishRepository dishRepository;
 
     @Override
@@ -34,6 +34,31 @@ public class DishServiceImpl implements DishService {
 //    public Double getPriceByDishId(Long id) {
 //        return restTemplate.getForObject("http://kitchen-service/dishes/get-by-id/" + id, Double.class);
 //    }
+
+    @HystrixCommand(
+            fallbackMethod = "getDishByIdFallback",
+            threadPoolKey = "getDishById",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+            },
+            commandKey = "getOrderById",
+            commandProperties = {
+                    @HystrixProperty(name = "requestVolumeThreshold", value = "10"),
+                    @HystrixProperty(name = "errorThresholdPercentage", value = "50"),
+                    @HystrixProperty(name = "sleepWindowInMilliseconds", value = "3000")
+            }
+    )
+    public Dish getDishById(Long id) {
+        return restTemplate.getForObject("http://kitchen-service/dishes/get-by-id" + id, Dish.class);
+    }
+
+    public Dish getDishByIdFallback(Long id) {
+        Dish dish = new Dish();
+        dish.setPrice(0D);
+        dish.setName("");
+        return dish;
+    }
 
     public Double getPriceByDishIdFallback(Long id) {
         return 0.0;
