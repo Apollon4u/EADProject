@@ -39,6 +39,24 @@ public class UserServiceImpl implements UserService {
 //        return restTemplate.getForObject("http://user-service/user/get-by-id" + id, UserDto.class);
 //    }
 
+    @HystrixCommand(
+            fallbackMethod = "getUserByIdFallback",
+            threadPoolKey = "getUserById",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+            },
+            commandKey = "getOrderById",
+            commandProperties = {
+                    @HystrixProperty(name = "requestVolumeThreshold", value = "10"),
+                    @HystrixProperty(name = "errorThresholdPercentage", value = "75"),
+                    @HystrixProperty(name = "sleepWindowInMilliseconds", value = "7000")
+            }
+            )
+    public UserDto getUserById(Long id) {
+        return restTemplate.getForObject("http://user-service/user/get-by-id" + id, UserDto.class);
+    }
+
     public UserDto getUserByIdFallback(Long id) {
         UserDto user = new UserDto();
         user.setAddress("Address is not available: Service Unavailable");
