@@ -36,6 +36,23 @@ public class OrderServiceImpl implements OrderService {
 //        return restTemplate.getForObject("http://order-service/order/get-by-id" + id, OrderDto.class);
 //    }
 
+    @HystrixCommand(
+            fallbackMethod = "getOrderByIdFallback",
+            threadPoolKey = "getOrderById",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+            },
+            commandKey = "getOrderById",
+            commandProperties = {
+                    @HystrixProperty(name = "requestVolumeThreshold", value = "10"),
+                    @HystrixProperty(name = "sleepWindowInMilliseconds", value = "7000")
+            }
+    )
+    public OrderDto getOrderById(Long id) {
+        return restTemplate.getForObject("http://order-service/order/get-by-id" + id, OrderDto.class);
+    }
+
     public OrderDto getOrderByIdFallback(Long orderId) {
         OrderDto dto = new OrderDto();
         dto.setUserId("user id is not available: Service Unavailable");
