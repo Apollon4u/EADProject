@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 public class DeliveryService {
 
     private final DeliveryRepository deliveryRepository;
-//    @Autowired
-//    private RestTemplate restTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public DeliveryOrder getDeliveryOrderByOrderId(Long orderId) {
         return deliveryRepository.getDeliveryOrderByOrderId(orderId);
@@ -43,6 +43,24 @@ public class DeliveryService {
 //    public DeliveryOrder getDeliveryOrder(Long id) {
 //        return restTemplate.getForObject("http://delivery-service/delivery/get-by-order" + id, DeliveryOrder.class);
 //    }
+
+    @HystrixCommand(
+            fallbackMethod = "getDeliveryOrderFallback",
+            threadPoolKey = "getDeliveryOrder",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+            },
+            commandKey = "getDeliveryOrder",
+            commandProperties = {
+                    @HystrixProperty(name = "requestVolumeThreshold", value = "10"),
+                    @HystrixProperty(name = "errorThresholdPercentage", value = "25"),
+                    @HystrixProperty(name = "sleepWindowInMilliseconds", value = "1000")
+            }
+    )
+    public DeliveryOrder getDeliveryOrder(Long id) {
+        return restTemplate.getForObject("http://delivery-service/delivery/get-by-order" + id, DeliveryOrder.class);
+    }
 
     public DeliveryOrder getDeliveryOrderFallback(Long id) {
         DeliveryOrder deliveryOrder = new DeliveryOrder();
