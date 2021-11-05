@@ -8,6 +8,7 @@ import com.example.productmicroservice.service.ProductService;
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,8 +18,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductConverter productConverter;
-//    @Autowired
-//    private RestTemplate restTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public ProductDto getProduct(Long productId) {
@@ -65,6 +66,24 @@ public class ProductServiceImpl implements ProductService {
 //    public ProductDto getProductById(Long id) {
 //        return restTemplate.getForObject("http://product-service/product/get-product" + id, ProductDto.class);
 //    }
+
+    @HystrixCommand(
+            fallbackMethod = "getProductByIdFallback",
+            threadPoolKey = "getProductById",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize", value="100"),
+                    @HystrixProperty(name="maxQueueSize", value="50"),
+            },
+            commandKey = "getProductById",
+            commandProperties = {
+                    @HystrixProperty(name = "requestVolumeThreshold", value = "10"),
+                    @HystrixProperty(name = "errorThresholdPercentage", value = "25"),
+                    @HystrixProperty(name = "sleepWindowInMilliseconds", value = "1000")
+            }
+    )
+    public ProductDto getProductById(Long id) {
+        return restTemplate.getForObject("http://product-service/product/get-product" + id, ProductDto.class);
+    }
 
     public ProductDto getProductByIdFallback(Long id) {
         ProductDto productDto = new ProductDto();
