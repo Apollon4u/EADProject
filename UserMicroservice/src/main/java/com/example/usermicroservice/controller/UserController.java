@@ -29,6 +29,12 @@ public class UserController {
         userService.createUser(dto);
     }
 
+    @GetMapping("get-email")
+    @ApiOperation(value = "Получить почту юзера")
+    public String getUserId(@RequestParam("id") Long id) {
+        return userService.getUser(id).getEmail();
+    }
+
     @PostMapping("make-order")
     @ApiOperation(value = "Создание заказа для юзера")
     public void makeOrder(@RequestParam("number") Long userId,
