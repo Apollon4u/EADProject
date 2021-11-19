@@ -21,6 +21,12 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.getProduct(id));
     }
 
+    @GetMapping("/get-product-name")
+    @ApiOperation(value = "Get product name")
+    public String getProductName(@RequestParam("id") Long id) {
+        return productService.getProductName(id);
+    }
+
     @PostMapping("/create-product")
     @ApiOperation(value = "Create new product")
     public void createProduct(@RequestParam("name") String name) {
