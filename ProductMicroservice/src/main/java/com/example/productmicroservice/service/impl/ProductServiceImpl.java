@@ -67,20 +67,20 @@ public class ProductServiceImpl implements ProductService {
 //        return restTemplate.getForObject("http://product-service/product/get-product" + id, ProductDto.class);
 //    }
 
-    @HystrixCommand(
-            fallbackMethod = "getProductByIdFallback",
-            threadPoolKey = "getProductById",
-            threadPoolProperties = {
-                    @HystrixProperty(name="coreSize", value="100"),
-                    @HystrixProperty(name="maxQueueSize", value="50"),
-            },
-            commandKey = "getProductById",
-            commandProperties = {
-                    @HystrixProperty(name = "requestVolumeThreshold", value = "10"),
-                    @HystrixProperty(name = "errorThresholdPercentage", value = "25"),
-                    @HystrixProperty(name = "sleepWindowInMilliseconds", value = "1000")
-            }
-    )
+//    @HystrixCommand(
+//            fallbackMethod = "getProductByIdFallback",
+//            threadPoolKey = "getProductById",
+//            threadPoolProperties = {
+//                    @HystrixProperty(name="coreSize", value="100"),
+//                    @HystrixProperty(name="maxQueueSize", value="50"),
+//            },
+//            commandKey = "getProductById",
+//            commandProperties = {
+//                    @HystrixProperty(name = "requestVolumeThreshold", value = "10"),
+//                    @HystrixProperty(name = "errorThresholdPercentage", value = "25"),
+//                    @HystrixProperty(name = "sleepWindowInMilliseconds", value = "1000")
+//            }
+//    )
     public ProductDto getProductById(Long id) {
         return restTemplate.getForObject("http://product-service/product/get-product" + id, ProductDto.class);
     }
@@ -90,5 +90,10 @@ public class ProductServiceImpl implements ProductService {
         productDto.setName("Name is not available: Service Unavailable");
         productDto.setId(0L);
         return productDto;
+    }
+
+    @Override
+    public String getProductName(Long id) {
+        return productRepository.findProductById(id).getName();
     }
 }

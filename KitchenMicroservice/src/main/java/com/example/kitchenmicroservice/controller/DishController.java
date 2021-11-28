@@ -32,6 +32,12 @@ public class DishController {
         return ResponseEntity.ok().body(dishService.getPrice(id));
     }
 
+    @GetMapping("/get-product")
+    @ApiOperation(value = "Get name of product for dish")
+    public String getProductName(@RequestParam("id") Long id) {
+        return dishService.getProductName(id);
+    }
+
     @PostMapping("/add-product")
     @ApiOperation(value = "Add product to dish")
     public void addProduct(@RequestParam("id") Long dishId,

@@ -15,7 +15,6 @@ public class OrderConverter implements Converter<OrderDto, Order> {
         order.setUserId(source.getUserId());
         order.setDateCreated(source.getDateCreated());
         order.setDishIds(source.getDishIds());
-        order.setStatus(source.getStatus());
         order.setTotalPrice(source.getTotalPrice());
         return order;
     }

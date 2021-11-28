@@ -8,4 +8,5 @@ public interface ProductService {
     void changeActivity(Boolean status, Long id);
     void addQuantity(Long quantity, Long id);
     void deleteQuantity(Long quantity, Long id);
+    String getProductName(Long id);
 }
