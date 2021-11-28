@@ -1,6 +1,6 @@
 package com.example.ordermicroservice.controller;
 
-import com.example.ordermicroservice.model.dto.OrderDto;
+import com.example.ordermicroservice.model.Order;
 import com.example.ordermicroservice.service.OrderService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +16,13 @@ public class OrderController {
 
     @GetMapping("/get-by-id")
     @ApiOperation(value = "Получить заказ по его айди")
-    public ResponseEntity<OrderDto> getOrderById(@RequestParam("id") Long id) {
+    public ResponseEntity<Order> getOrderById(@RequestParam("id") Long id) {
         return ResponseEntity.ok().body(orderService.getOrder(id));
     }
 
     @PostMapping("/make-order")
     @ApiOperation(value = "Создать заказ")
-    public void createOrder(@RequestParam("orderNumber") OrderDto dto) {
+    public void createOrder(@RequestParam("orderNumber") Order dto) {
         orderService.createOrder(dto);
     }
 

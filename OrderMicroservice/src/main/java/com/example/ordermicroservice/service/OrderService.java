@@ -1,9 +1,9 @@
 package com.example.ordermicroservice.service;
 
-import com.example.ordermicroservice.model.dto.OrderDto;
+import com.example.ordermicroservice.model.Order;
 
 public interface OrderService {
-    OrderDto getOrder(Long orderId);
-    void createOrder(OrderDto dto);
+    Order getOrder(Long orderId);
+    void createOrder(Order dto);
     void addDish(Long orderId, Long dishId);
 }

@@ -1,8 +1,6 @@
 package com.example.ordermicroservice.service.impl;
 
-import com.example.ordermicroservice.converter.OrderConverter;
-import com.example.ordermicroservice.model.dto.OrderDto;
-import com.example.ordermicroservice.model.entity.Order;
+import com.example.ordermicroservice.model.Order;
 import com.example.ordermicroservice.repository.OrderRepository;
 import com.example.ordermicroservice.service.OrderService;
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -20,13 +18,11 @@ import org.springframework.web.client.RestTemplate;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderConverter orderConverter;
     private RestTemplate restTemplate;
 
     @Override
-    public OrderDto getOrder(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
-        return OrderDto.from(order);
+    public Order getOrder(Long orderId) {
+        return orderRepository.getById(orderId);
     }
 
 //    @HystrixCommand(
@@ -56,12 +52,12 @@ public class OrderServiceImpl implements OrderService {
 //                    @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "5")
 //            }
 //    )
-    public OrderDto getOrderById(Long id) {
-        return restTemplate.getForObject("http://order-service/order/get-by-id" + id, OrderDto.class);
+    public Order getOrderById(Long id) {
+        return restTemplate.getForObject("http://order-service/order/get-by-id" + id, Order.class);
     }
 
-    public OrderDto getOrderByIdFallback(Long orderId) {
-        OrderDto dto = new OrderDto();
+    public Order getOrderByIdFallback(Long orderId) {
+        Order dto = new Order();
         dto.setUserId("user id is not available: Service Unavailable");
         dto.setTotalPrice(-1D);
         return dto;
@@ -80,8 +76,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(OrderDto dto) {
-        orderRepository.save(orderConverter.convert(dto));
+    public void createOrder(Order order) {
+        orderRepository.save(order);
     }
 
     @Override

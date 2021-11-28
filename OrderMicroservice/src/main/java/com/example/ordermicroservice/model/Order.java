@@ -1,4 +1,4 @@
-package com.example.ordermicroservice.model.entity;
+package com.example.ordermicroservice.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
