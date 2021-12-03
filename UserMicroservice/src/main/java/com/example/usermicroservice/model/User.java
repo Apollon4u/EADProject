@@ -20,12 +20,16 @@ public class User {
     @GeneratedValue(generator = "user-seq")
     private Long id;
 
-    @Column(name = "email")
+    @ApiModelProperty("Почта")
+    private String username;
+
+    @ApiModelProperty("Пароль")
+    private String password;
+
     @NotNull
     @ApiModelProperty("Почта")
     private String email;
 
-    @Column
     @ApiModelProperty("ФИО")
     private String fio;
 
@@ -37,7 +41,6 @@ public class User {
     @ApiModelProperty("Банковский аккаунт")
     private String bankAccount;
 
-    @Column(name = "address")
     @ApiModelProperty("Адрес")
     private String address;
 
