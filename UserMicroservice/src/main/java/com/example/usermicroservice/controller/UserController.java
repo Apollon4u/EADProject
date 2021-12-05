@@ -24,16 +24,10 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUser(id));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @ApiOperation(value = "Создать юзера")
     public void createUser(@RequestBody User user) {
         userService.createUser(user);
-    }
-
-    @GetMapping("get-email")
-    @ApiOperation(value = "Получить почту юзера")
-    public String getUserId(@RequestParam("id") Long id) {
-        return userService.getUser(id).getEmail();
     }
 
     @GetMapping
