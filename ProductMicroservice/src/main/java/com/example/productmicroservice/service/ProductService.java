@@ -1,9 +1,9 @@
 package com.example.productmicroservice.service;
 
-import com.example.productmicroservice.model.dto.ProductDto;
+import com.example.productmicroservice.model.Product;
 
 public interface ProductService {
-    ProductDto getProduct(Long productId);
+    Product getProduct(Long productId);
     void createProduct(String name);
     void changeActivity(Boolean status, Long id);
     void addQuantity(Long quantity, Long id);

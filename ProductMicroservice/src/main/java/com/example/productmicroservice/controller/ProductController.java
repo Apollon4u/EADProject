@@ -1,7 +1,6 @@
 package com.example.productmicroservice.controller;
 
-import com.example.productmicroservice.model.dto.ProductDto;
-import com.example.productmicroservice.model.entity.Product;
+import com.example.productmicroservice.model.Product;
 import com.example.productmicroservice.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ public class ProductController {
 
     @GetMapping("/get-product")
     @ApiOperation(value = "Get product by id")
-    public ResponseEntity<ProductDto> getProduct(@RequestParam("id") Long id) {
+    public ResponseEntity<Product> getProduct(@RequestParam("id") Long id) {
         return ResponseEntity.ok().body(productService.getProduct(id));
     }
 
