@@ -6,6 +6,8 @@ import com.example.productmicroservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -17,12 +19,13 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findProductById(productId);
     }
 
-    public void createProduct(String name) {
-        Product product = new Product();
-        product.setActive(false);
-        product.setName(name);
-        product.setQuantity(0L);
+    public void createProduct(Product product) {
         productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> getByKitchenId(Long kitchenId) {
+        return productRepository.findByKitchenId(kitchenId);
     }
 
     @Override

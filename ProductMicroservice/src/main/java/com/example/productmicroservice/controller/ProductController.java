@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/product")
@@ -28,8 +30,14 @@ public class ProductController {
 
     @PostMapping("/create-product")
     @ApiOperation(value = "Create new product")
-    public void createProduct(@RequestParam("name") String name) {
-        productService.createProduct(name);
+    public void createProduct(@RequestParam("name") Product product) {
+        productService.createProduct(product);
+    }
+
+    @GetMapping("/get-by-kitchen")
+    @ApiOperation(value = "Get kitchen's products")
+    public List<Product> getProductsByKitchen(@RequestParam("kitchenId") Long kitchenId) {
+        return productService.getByKitchenId(kitchenId);
     }
 
     @PostMapping("/change-activity")

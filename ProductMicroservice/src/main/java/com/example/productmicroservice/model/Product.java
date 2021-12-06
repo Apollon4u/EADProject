@@ -30,6 +30,9 @@ public class Product {
     @ApiModelProperty("Quantity of product in storage")
     private Long quantity;
 
-    @ApiModelProperty(notes = "Price of product")
+    @ApiModelProperty("Total price of product")
     private Double totalPrice;
+
+    @ApiModelProperty("Pertner kitchen's id")
+    private Long kitchenId;
 }
